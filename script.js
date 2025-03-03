@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Conexão estabelecida com a Deriv API');
     // Autoriza usando seu token (substitua pelo seu token real)
     ws.send(JSON.stringify({
-      authorize: 'o00BTFuurgz60mc'
+      authorize: 'pnkUqYA6tJCmLPD'
     }));
   };
   
