@@ -14,40 +14,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const notificationArea = document.getElementById('notification-area');
   
-    // Conexão via WebSocket com a Deriv API
-    const ws = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=YOUR_APP_ID'); // Substitua YOUR_APP_ID pelo seu App ID
-  
+    const ws = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=12345'); // Substitua 12345 pelo seu App ID
+
     ws.onopen = () => {
-      console.log('Conexão WebSocket estabelecida');
-      // Autoriza usando seu token (substitua pelo seu token real)
-      ws.send(JSON.stringify({
-        authorize: "NBptZR5NPfaHpMJ" 
-      }));
+      console.log('Conexão estabelecida');
+      ws.send(JSON.stringify({ authorize: 'o00BTFuurgz60mc' })); // Substitua pelo seu token
     };
-  
-    ws.onmessage = (msg) => {
-      const data = JSON.parse(msg.data);
-      console.log('Dados recebidos:', data);
-  
-      // Se a mensagem for de autorização, exibe uma notificação
-      if (data.msg_type === "authorize") {
-        showNotification('Autorizado com sucesso!');
-      }
-  
-      // Se receber dados de histórico de candles, processa para exibir o sinal
-      if (data.msg_type === "ticks_history" && data.candles) {
-        processCandlesData(data.candles);
-      }
+    
+    ws.onmessage = (event) => {
+      console.log('Recebido:', event.data);
     };
-  
+    
     ws.onerror = (err) => {
       console.error('Erro no WebSocket:', err);
-      showNotification('Erro na conexão com a Deriv API.');
     };
-  
+    
     ws.onclose = () => {
-      console.log('Conexão WebSocket fechada.');
+      console.log('Conexão fechada.');
     };
+    
   
     // Função para exibir notificações temporárias
     const showNotification = message => {
